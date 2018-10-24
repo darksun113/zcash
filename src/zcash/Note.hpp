@@ -14,12 +14,15 @@ namespace libzcash {
 class BaseNote {
 protected:
     uint64_t value_ = 0;
+    uint256 color_ = 0; //Added by Kelvin, color=0 means zcash, 20181024
 public:
     BaseNote() {}
     BaseNote(uint64_t value) : value_(value) {};
+    BaseNote(uint64_t value, uint256 color): value_(value), color_(color) {};
     virtual ~BaseNote() {};
 
     inline uint64_t value() const { return value_; };
+    inline uint256 color() const {return color_;};
 };
 
 class SproutNote : public BaseNote {
