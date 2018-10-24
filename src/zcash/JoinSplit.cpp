@@ -423,6 +423,12 @@ SproutNote JSOutput::note(const uint252& phi, const uint256& r, size_t i, const 
     return SproutNote(addr.a_pk, value, rho, r);
 }
 
+SproutNote JSOutput::note_w_color(const uint252& phi, const uint256& r, size_t i, const uint256& h_sig) const {
+    uint256 rho = PRF_rho(phi, i, h_sig);
+
+    return SproutNote(addr.a_pk, value, color, rho, r);
+}
+
 JSOutput::JSOutput() : addr(uint256(), uint256()), value(0) {
     SproutSpendingKey a_sk = SproutSpendingKey::random();
     addr = a_sk.address();

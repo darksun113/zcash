@@ -43,12 +43,14 @@ class JSOutput {
 public:
     SproutPaymentAddress addr;
     uint64_t value;
+    uint64_t color;
     std::array<unsigned char, ZC_MEMO_SIZE> memo = {{0xF6}};  // 0xF6 is invalid UTF8 as per spec, rest of array is 0x00
 
     JSOutput();
     JSOutput(SproutPaymentAddress addr, uint64_t value) : addr(addr), value(value) { }
-
+    JSOutput(SproutPaymentAddress addr, uint64_t value, uint64_t color) : addr(addr), value(value), color(color) { }
     SproutNote note(const uint252& phi, const uint256& r, size_t i, const uint256& h_sig) const;
+    SproutNote note_w_color(const uint252& phi, const uint256& r, size_t i, const uint256& h_sig) const; //Added by Kelvin, 20181024
 };
 
 template<size_t NumInputs, size_t NumOutputs>
