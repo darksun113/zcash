@@ -204,7 +204,7 @@ public:
             // Compute nullifier of input
             out_nullifiers[i] = inputs[i].nullifier();
         }
-
+        LogPrintf("===========JS: Computing Random Seed.\n");
         // Sample randomSeed
         out_randomSeed = random_uint256();
 
