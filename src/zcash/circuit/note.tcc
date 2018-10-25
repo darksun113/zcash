@@ -10,7 +10,7 @@ public:
 
     note_gadget(protoboard<FieldT> &pb) : gadget<FieldT>(pb) {
         value.allocate(pb, 64);
-        color.allocate(pb, 64); //Added by Kelvin, 20181025
+        //color.allocate(pb, 64); //Added by Kelvin, 20181025
         r.reset(new digest_variable<FieldT>(pb, 256, ""));
     }
 
@@ -37,7 +37,7 @@ public:
 
     void generate_r1cs_witness(const SproutNote& note) {
         r->bits.fill_with_bits(this->pb, uint256_to_bool_vector(note.r));
-        value.fill_with_bits(this->pb, uint64_to_bool_vector(note.value()));
+        value.fill_with_bits(this->pb, uint64_to_bool_vector(note.vc())); //Modified by Kelvin, 20181025
         //color.fill_with_bits(this->pb, uint64_to_bool_vector(note.color())); //Added by Kelvin, 20181025
     }
 };
