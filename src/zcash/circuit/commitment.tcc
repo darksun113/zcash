@@ -13,6 +13,7 @@ public:
         pb_variable<FieldT>& ZERO,
         pb_variable_array<FieldT>& a_pk,
         pb_variable_array<FieldT>& v,
+        pb_variable_array<FieldT>& color,
         pb_variable_array<FieldT>& rho,
         pb_variable_array<FieldT>& r,
         std::shared_ptr<digest_variable<FieldT>> result

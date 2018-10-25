@@ -12,7 +12,8 @@ public:
         protoboard<FieldT>& pb,
         digest_variable<FieldT> leaf,
         digest_variable<FieldT> root,
-        pb_variable<FieldT>& enforce
+        pb_variable<FieldT>& enforce,
+        pb_variable<FieldT>& c_enforce
     ) : gadget<FieldT>(pb) {
         positions.allocate(pb, INCREMENTAL_MERKLE_TREE_DEPTH);
         authvars.reset(new merkle_authentication_path_variable<FieldT, sha256_gadget>(

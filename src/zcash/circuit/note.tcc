@@ -24,6 +24,7 @@ public:
         }
 
         //Added by Kelvin, 20181025 - Checking every bit for color????
+        //From libsnark: /* forces lc to take value 0 or 1 by adding constraint lc * (1-lc) = 0 */
         for (size_t i = 0; i < 64; i++) {
             generate_boolean_r1cs_constraint<FieldT>(
                 this->pb,
@@ -51,6 +52,7 @@ private:
     std::shared_ptr<note_commitment_gadget<FieldT>> commit_to_inputs;
 
     pb_variable<FieldT> value_enforce;
+    pb_variable<FieldT> color_enforce;  //Added by Kelvin, 20181025
     std::shared_ptr<merkle_tree_gadget<FieldT>> witness_input;
 
     std::shared_ptr<PRF_addr_a_pk_gadget<FieldT>> spend_authority;
@@ -89,18 +91,21 @@ public:
             ZERO,
             a_pk->bits,
             this->value, //Need to modify
+            this->color, //Added by Kelvin, 20181025
             rho->bits,
             this->r->bits,
             commitment
         ));
 
         value_enforce.allocate(pb); //Need to modity?
+        color_enforce.allocate(pb);
 
         witness_input.reset(new merkle_tree_gadget<FieldT>(
             pb,
             *commitment,
             rt,
-            value_enforce  //Need to modify??
+            value_enforce,  //Need to modify??
+            color_enforce //Added by Kelvin, 20181025
         ));
     }
 
@@ -120,12 +125,19 @@ public:
         // If `value` is zero, `enforce` _can_ be zero.
         // If `value` is nonzero, `enforce` _must_ be one.
         generate_boolean_r1cs_constraint<FieldT>(this->pb, value_enforce,"");
+        generate_boolean_r1cs_constraint<FieldT>(this->pb, color_enforce,""); //Added by Kelvin, 20181025
 
         this->pb.add_r1cs_constraint(r1cs_constraint<FieldT>(
             packed_addition(this->value),
             (1 - value_enforce),
             0
         ), "");
+
+        this->pb.add_r1cs_constraint(r1cs_constraint<FieldT>(
+            packed_addition(this->color),
+            (1 - color_enforce),
+            0
+        ), ""); // Added by Kelvin, 20181025
 
         witness_input->generate_r1cs_constraints();
     }
@@ -173,6 +185,7 @@ public:
 
         // Set enforce flag for nonzero input value
         this->pb.val(value_enforce) = (note.value() != 0) ? FieldT::one() : FieldT::zero();
+        this->pb.val(color_enforce) = (note.color() != 0) ? FieldT::one() : FieldT::zero(); //Added by Kelvin, 20181025
 
         // Witness merkle tree authentication path
         witness_input->generate_r1cs_witness(path);
@@ -220,6 +233,7 @@ public:
             ZERO,
             a_pk->bits,
             this->value, //Need to modify
+            this->color, //Added by Kelvin, 20181025
             rho->bits,
             this->r->bits,
             commitment
