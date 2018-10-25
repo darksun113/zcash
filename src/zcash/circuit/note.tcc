@@ -29,7 +29,7 @@ public:
             generate_boolean_r1cs_constraint<FieldT>(
                 this->pb,
                 color[i],
-                "boolean_value"
+                "boolean_value_color"
             );
         }
         r->generate_r1cs_constraints();
