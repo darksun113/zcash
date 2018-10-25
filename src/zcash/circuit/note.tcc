@@ -5,7 +5,7 @@ template<typename FieldT>
 class note_gadget : public gadget<FieldT> {
 public:
     pb_variable_array<FieldT> value;
-    //pb_variable_array<FieldT> color; //Added by Kelvin, 20181025
+    pb_variable_array<FieldT> color; //Added by Kelvin, 20181025
     std::shared_ptr<digest_variable<FieldT>> r;
 
     note_gadget(protoboard<FieldT> &pb) : gadget<FieldT>(pb) {
