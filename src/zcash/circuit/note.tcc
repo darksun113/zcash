@@ -10,7 +10,7 @@ public:
 
     note_gadget(protoboard<FieldT> &pb) : gadget<FieldT>(pb) {
         value.allocate(pb, 64);
-        //color.allocate(pb, 64); //Added by Kelvin, 20181025
+        color.allocate(pb, 64); //Added by Kelvin, 20181025
         r.reset(new digest_variable<FieldT>(pb, 256, ""));
     }
 
