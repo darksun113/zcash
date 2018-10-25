@@ -1,11 +1,16 @@
+/*Carefully!!! Task: 
+Adding color to every gadget*/
+
 template<typename FieldT>
 class note_gadget : public gadget<FieldT> {
 public:
     pb_variable_array<FieldT> value;
+    pb_variable_array<FieldT> color; //Added by Kelvin, 20181025
     std::shared_ptr<digest_variable<FieldT>> r;
 
     note_gadget(protoboard<FieldT> &pb) : gadget<FieldT>(pb) {
         value.allocate(pb, 64);
+        color.allocate(pb, 64); //Added by Kelvin, 20181025
         r.reset(new digest_variable<FieldT>(pb, 256, ""));
     }
 
@@ -18,12 +23,21 @@ public:
             );
         }
 
+        //Added by Kelvin, 20181025 - Checking every bit for color????
+        for (size_t i = 0; i < 64; i++) {
+            generate_boolean_r1cs_constraint<FieldT>(
+                this->pb,
+                color[i],
+                "boolean_value"
+            );
+        }
         r->generate_r1cs_constraints();
     }
 
     void generate_r1cs_witness(const SproutNote& note) {
         r->bits.fill_with_bits(this->pb, uint256_to_bool_vector(note.r));
         value.fill_with_bits(this->pb, uint64_to_bool_vector(note.value()));
+        color.fill_with_bits(this->pb, uint64_to_bool_vector(note.color())); //Added by Kelvin, 20181025
     }
 };
 
@@ -74,19 +88,19 @@ public:
             pb,
             ZERO,
             a_pk->bits,
-            this->value,
+            this->value, //Need to modify
             rho->bits,
             this->r->bits,
             commitment
         ));
 
-        value_enforce.allocate(pb);
+        value_enforce.allocate(pb); //Need to modity?
 
         witness_input.reset(new merkle_tree_gadget<FieldT>(
             pb,
             *commitment,
             rt,
-            value_enforce
+            value_enforce  //Need to modify??
         ));
     }
 
@@ -205,7 +219,7 @@ public:
             pb,
             ZERO,
             a_pk->bits,
-            this->value,
+            this->value, //Need to modify
             rho->bits,
             this->r->bits,
             commitment
