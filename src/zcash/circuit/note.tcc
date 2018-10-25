@@ -125,7 +125,7 @@ public:
         // If `value` is zero, `enforce` _can_ be zero.
         // If `value` is nonzero, `enforce` _must_ be one.
         generate_boolean_r1cs_constraint<FieldT>(this->pb, value_enforce,"");
-        generate_boolean_r1cs_constraint<FieldT>(this->pb, color_enforce,""); //Added by Kelvin, 20181025
+        //generate_boolean_r1cs_constraint<FieldT>(this->pb, color_enforce,""); //Added by Kelvin, 20181025
 
         this->pb.add_r1cs_constraint(r1cs_constraint<FieldT>(
             packed_addition(this->value),
