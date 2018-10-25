@@ -423,6 +423,7 @@ SproutNote JSOutput::note(const uint252& phi, const uint256& r, size_t i, const 
     return SproutNote(addr.a_pk, value, rho, r);
 }
 
+//Added by Kelvin, 20181024
 SproutNote JSOutput::note_w_color(const uint252& phi, const uint256& r, size_t i, const uint256& h_sig) const {
     uint256 rho = PRF_rho(phi, i, h_sig);
 
@@ -430,13 +431,14 @@ SproutNote JSOutput::note_w_color(const uint252& phi, const uint256& r, size_t i
 }
 
 JSOutput::JSOutput() : addr(uint256(), uint256()), value(0) {
+    color = 0;  //Added by Kelvin, 20181025
     SproutSpendingKey a_sk = SproutSpendingKey::random();
     addr = a_sk.address();
 }
 
 JSInput::JSInput() : witness(SproutMerkleTree().witness()),
                      key(SproutSpendingKey::random()) {
-    note = SproutNote(key.address().a_pk, 0, random_uint256(), random_uint256());
+    note = SproutNote(key.address().a_pk, 0, 0,random_uint256(), random_uint256()); //Added a color 0 by Kelvin, 20181025
     SproutMerkleTree dummy_tree;
     dummy_tree.append(note.cm());
     witness = dummy_tree.witness();
