@@ -8,12 +8,34 @@ private:
     std::shared_ptr<merkle_tree_check_read_gadget<FieldT, sha256_gadget>> auth;
 
 public:
-    merkle_tree_gadget(
+    merkle_tree_gadget( //Added by Kelvin, 20181025
         protoboard<FieldT>& pb,
         digest_variable<FieldT> leaf,
         digest_variable<FieldT> root,
         pb_variable<FieldT>& enforce,
         pb_variable<FieldT>& c_enforce
+    ) : gadget<FieldT>(pb) {
+        positions.allocate(pb, INCREMENTAL_MERKLE_TREE_DEPTH);
+        authvars.reset(new merkle_authentication_path_variable<FieldT, sha256_gadget>(
+            pb, INCREMENTAL_MERKLE_TREE_DEPTH, "auth"
+        ));
+        auth.reset(new merkle_tree_check_read_gadget<FieldT, sha256_gadget>(
+            pb,
+            INCREMENTAL_MERKLE_TREE_DEPTH,
+            positions,
+            leaf,
+            root,
+            *authvars,
+            enforce,
+            ""
+        ));
+    }
+
+    merkle_tree_gadget(
+        protoboard<FieldT>& pb,
+        digest_variable<FieldT> leaf,
+        digest_variable<FieldT> root,
+        pb_variable<FieldT>& enforce
     ) : gadget<FieldT>(pb) {
         positions.allocate(pb, INCREMENTAL_MERKLE_TREE_DEPTH);
         authvars.reset(new merkle_authentication_path_variable<FieldT, sha256_gadget>(
