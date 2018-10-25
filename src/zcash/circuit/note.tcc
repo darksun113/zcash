@@ -5,12 +5,12 @@ template<typename FieldT>
 class note_gadget : public gadget<FieldT> {
 public:
     pb_variable_array<FieldT> value;
-    pb_variable_array<FieldT> color; //Added by Kelvin, 20181025
+    //pb_variable_array<FieldT> color; //Added by Kelvin, 20181025
     std::shared_ptr<digest_variable<FieldT>> r;
 
     note_gadget(protoboard<FieldT> &pb) : gadget<FieldT>(pb) {
         value.allocate(pb, 64);
-        color.allocate(pb, 64); //Added by Kelvin, 20181025
+        //color.allocate(pb, 64); //Added by Kelvin, 20181025
         r.reset(new digest_variable<FieldT>(pb, 256, ""));
     }
 
@@ -25,20 +25,20 @@ public:
 
         //Added by Kelvin, 20181025 - Checking every bit for color????
         //From libsnark: /* forces lc to take value 0 or 1 by adding constraint lc * (1-lc) = 0 */
-        for (size_t i = 0; i < 64; i++) {
+        /*for (size_t i = 0; i < 64; i++) {
             generate_boolean_r1cs_constraint<FieldT>(
                 this->pb,
                 color[i],
                 "boolean_value_color"
             );
-        }
+        }*/
         r->generate_r1cs_constraints();
     }
 
     void generate_r1cs_witness(const SproutNote& note) {
         r->bits.fill_with_bits(this->pb, uint256_to_bool_vector(note.r));
         value.fill_with_bits(this->pb, uint64_to_bool_vector(note.value()));
-        color.fill_with_bits(this->pb, uint64_to_bool_vector(note.color())); //Added by Kelvin, 20181025
+        //color.fill_with_bits(this->pb, uint64_to_bool_vector(note.color())); //Added by Kelvin, 20181025
     }
 };
 
