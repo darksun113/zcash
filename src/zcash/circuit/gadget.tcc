@@ -156,6 +156,7 @@ public:
         // Value balance
         {
             linear_combination<FieldT> left_side = packed_addition(zk_vpub_old);
+            LogPrintf("============Test.")
             for (size_t i = 0; i < NumInputs; i++) {
                 left_side = left_side + packed_addition(zk_input_notes[i]->value); //Modified by Kelvin, 20181026
             }
