@@ -68,6 +68,35 @@ T swap_endianness_u64(T v) {
 template<typename FieldT>
 linear_combination<FieldT> packed_addition(pb_variable_array<FieldT> input) {
     auto input_swapped = swap_endianness_u64(input);
+    
+
+    return pb_packing_sum<FieldT>(pb_variable_array<FieldT>(
+        input_swapped.rbegin(), input_swapped.rend()
+    ));
+}
+
+template<typename FieldT>
+linear_combination<FieldT> packed_true_value(pb_variable_array<FieldT> input, protoboard<FieldT> pb) {
+    auto input_swapped = swap_endianness_u64(input);
+
+    bit_vector bits = input_swapped.get_bits(pb);
+            LogPrintf("Input: 0x");
+            for(size_t i = 0; i < 64; i++) {
+                if(bits[i])
+                    LogPrintf("1");
+                else
+                    LogPrintf("0");
+            }
+            LogPrintf("\n");
+
+    return pb_packing_sum<FieldT>(pb_variable_array<FieldT>(
+        input_swapped.rbegin(), input_swapped.rend()
+    ));
+}
+
+template<typename FieldT>
+linear_combination<FieldT> packed_color(pb_variable_array<FieldT> input) {
+    auto input_swapped = swap_endianness_u64(input);
 
     return pb_packing_sum<FieldT>(pb_variable_array<FieldT>(
         input_swapped.rbegin(), input_swapped.rend()
