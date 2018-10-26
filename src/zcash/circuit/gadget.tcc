@@ -155,8 +155,12 @@ public:
 
         // Value balance
         {
+            //linear_combination<FieldT> color_check = //Added by Kelvin, 20181026
             linear_combination<FieldT> left_side = packed_addition(zk_vpub_old);
-            LogPrintf("============Test.");
+            for(size_t i=0;i<64,i++) {
+                LogPrintf("<%u,%u>",i,zk_vpub_old[i]);
+            }
+            LogPrintf("\n");
             for (size_t i = 0; i < NumInputs; i++) {
                 left_side = left_side + packed_addition(zk_input_notes[i]->value); //Modified by Kelvin, 20181026
             }
