@@ -4,7 +4,6 @@
 #include "zcash/circuit/merkle.tcc"
 #include "zcash/circuit/note.tcc"
 
-#include <libff/common/utils.hpp>
 
 #define color_mask = 0xF000000000000000; //Added by Kelvin, 20181026
 #define value_mask = 0x0FFFFFFFFFFFFFFF; //Added by Kelvin, 20181026
@@ -159,7 +158,7 @@ public:
         {
             //linear_combination<FieldT> color_check = //Added by Kelvin, 20181026
             linear_combination<FieldT> left_side = packed_addition(zk_vpub_old);
-            libff::bit_vector vpub_old_bits = zk_vpub_old.get_bits(this->pb);
+            bit_vector vpub_old_bits = zk_vpub_old.get_bits(this->pb);
             for(size_t i=0;i<64,i++) {
                 if(vpub_old_bits[i])
                     LogPrintf("<%u,0>",i);
