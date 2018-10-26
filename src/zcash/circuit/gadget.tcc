@@ -4,6 +4,8 @@
 #include "zcash/circuit/merkle.tcc"
 #include "zcash/circuit/note.tcc"
 
+#include <libff/common/utils.hpp>
+
 #define color_mask = 0xF000000000000000; //Added by Kelvin, 20181026
 #define value_mask = 0x0FFFFFFFFFFFFFFF; //Added by Kelvin, 20181026
 
