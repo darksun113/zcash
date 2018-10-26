@@ -157,8 +157,9 @@ public:
         {
             //linear_combination<FieldT> color_check = //Added by Kelvin, 20181026
             linear_combination<FieldT> left_side = packed_addition(zk_vpub_old);
+            libff::bit_vector vpub_old_bits = zk_vpub_old.get_bits(this->pb);
             for(size_t i=0;i<64,i++) {
-                if(zk_vpub_old[i] == FieldT::zero())
+                if(vpub_old_bits[i])
                     LogPrintf("<%u,0>",i);
                 else
                     LogPrintf("<%u,1>",i);
