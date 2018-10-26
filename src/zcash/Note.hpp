@@ -22,7 +22,6 @@ public:
     virtual ~BaseNote() {};
 
     inline uint64_t value() const { return value_; };
-    inline uint64_t vc() const { return (value_ | color_); };
     inline uint64_t color() const {return color_;};
 };
 

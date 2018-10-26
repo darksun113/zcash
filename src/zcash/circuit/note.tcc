@@ -37,7 +37,7 @@ public:
 
     void generate_r1cs_witness(const SproutNote& note) {
         r->bits.fill_with_bits(this->pb, uint256_to_bool_vector(note.r));
-        value.fill_with_bits(this->pb, uint64_to_bool_vector(note.vc())); //Modified by Kelvin, 20181025
+        value.fill_with_bits(this->pb, uint64_to_bool_vector(note.value())); //Modified by Kelvin, 20181025
         //color.fill_with_bits(this->pb, uint64_to_bool_vector(note.color())); //Added by Kelvin, 20181025
     }
 };
