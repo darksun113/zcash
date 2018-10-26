@@ -4,6 +4,9 @@
 #include "zcash/circuit/merkle.tcc"
 #include "zcash/circuit/note.tcc"
 
+#define color_mask = 0xF000000000000000; //Added by Kelvin, 20181026
+#define value_mask = 0x0FFFFFFFFFFFFFFF; //Added by Kelvin, 20181026
+
 template<typename FieldT, size_t NumInputs, size_t NumOutputs>
 class joinsplit_gadget : gadget<FieldT> {
 private:
@@ -154,7 +157,7 @@ public:
         {
             linear_combination<FieldT> left_side = packed_addition(zk_vpub_old);
             for (size_t i = 0; i < NumInputs; i++) {
-                left_side = left_side + packed_addition(zk_input_notes[i]->value);
+                left_side = left_side + packed_addition(zk_input_notes[i]->value); //Modified by Kelvin, 20181026
             }
 
             linear_combination<FieldT> right_side = packed_addition(zk_vpub_new);
