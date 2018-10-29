@@ -25,9 +25,9 @@
 using namespace libsnark;
 
 //Added by Kelvin, 20181029 - new keys location
-const std::string new_pk_path = "/home/ubuntu/.zcash-params-new/sprout-proving.key"
-const std::string new_vk_path = "/home/ubuntu/.zcash-params-new/sprout-verifying.key"
-const std::string new_r1cs_path = "/home/ubuntu/.zcash-params-new/sprout-groth16.params"
+const std::string new_pk_path = "/home/ubuntu/.zcash-params-new/sprout-proving.key";
+const std::string new_vk_path = "/home/ubuntu/.zcash-params-new/sprout-verifying.key";
+const std::string new_r1cs_path = "/home/ubuntu/.zcash-params-new/sprout-groth16.params";
 
 namespace libzcash {
 
