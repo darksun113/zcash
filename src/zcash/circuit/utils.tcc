@@ -110,7 +110,14 @@ linear_combination<FieldT> packed_true_value(pb_variable_array<FieldT> input, pr
 }
 
 template<typename FieldT>
-linear_combination<FieldT> packed_color(pb_variable_array<FieldT> input) {
+linear_combination<FieldT> packed_color(pb_variable_array<FieldT> input, protoboard<FieldT> pb) {
+    //Added by Kelvin, 20181029 - Clear value bits (8 bits)
+    bit_vector vpub_old_bits = input.get_bits(pb);
+    for(size_t i = 8; i < 64; i++) {
+        vpub_old_bits[i] = 0;
+    }
+   
+    input.fill_with_bits(pb, vpub_old_bits);
     auto input_swapped = swap_endianness_u64(input);
 
     return pb_packing_sum<FieldT>(pb_variable_array<FieldT>(
