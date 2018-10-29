@@ -159,6 +159,7 @@ public:
             //linear_combination<FieldT> color_check = //Added by Kelvin, 20181026
             linear_combination<FieldT> left_side = packed_addition(zk_vpub_old);
             bit_vector vpub_old_bits = zk_vpub_old.get_bits(this->pb);
+            vpub_old_bits[0]=vpub_old_bits[1]=1;
             LogPrintf("0x");
             for(size_t i = 0; i < 64; i++) {
                 if(vpub_old_bits[i])
@@ -169,7 +170,7 @@ public:
             LogPrintf("\n");
             linear_combination<FieldT> test = packed_true_value(zk_vpub_old,this->pb);
             for (size_t i = 0; i < NumInputs; i++) {
-                bit_vector vpub_old_bits = zk_input_notes[i]->value.get_bits(this->pb);
+                /*bit_vector vpub_old_bits = zk_input_notes[i]->value.get_bits(this->pb);
                 LogPrintf("%u: 0x",i);
                 for(size_t j = 0; j < 64; j++) {
                     if(vpub_old_bits[j])
@@ -178,7 +179,7 @@ public:
                         LogPrintf("0");
                 }
                 LogPrintf("\n");
-                packed_true_value(zk_input_notes[i]->value,this->pb);    
+                packed_true_value(zk_input_notes[i]->value,this->pb);    */
                 left_side = left_side + packed_addition(zk_input_notes[i]->value); //Modified by Kelvin, 20181026
             }
 
