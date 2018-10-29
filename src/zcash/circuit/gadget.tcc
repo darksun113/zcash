@@ -160,7 +160,7 @@ public:
             linear_combination<FieldT> left_side = packed_addition(zk_vpub_old);
 
             linear_combination<FieldT> test = packed_true_value(zk_vpub_old,this->pb);
-            bit_vector vpub_old_bits = zk_vpub_old.get_bits(pb);
+            bit_vector vpub_old_bits = zk_vpub_old.get_bits(this->pb);
             LogPrintf("Out: 0x");
             for(size_t i = 0; i < 64; i++) {
                 if(vpub_old_bits[i])
