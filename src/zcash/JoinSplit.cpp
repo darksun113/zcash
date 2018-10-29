@@ -382,7 +382,7 @@ template<size_t NumInputs, size_t NumOutputs>
 JoinSplit<NumInputs, NumOutputs>* JoinSplit<NumInputs, NumOutputs>::Prepared(const std::string vkPath,
                                                                              const std::string pkPath)
 {
-    LogPrintf("================Test2: %s, %s\n",vkPatg,pkPath);
+    LogPrintf("================Test2: %s, %s\n",vkPath,pkPath);
     initialize_curve_params();
     return new JoinSplitCircuit<NumInputs, NumOutputs>(vkPath, pkPath);
 }
