@@ -78,7 +78,11 @@ linear_combination<FieldT> packed_addition(pb_variable_array<FieldT> input) {
 template<typename FieldT>
 linear_combination<FieldT> packed_true_value(pb_variable_array<FieldT> input, protoboard<FieldT> pb) {
     bit_vector vpub_old_bits = input.get_bits(pb);
-    vpub_old_bits[0]=vpub_old_bits[1]=1;
+    //vpub_old_bits[0]=vpub_old_bits[1]=1;
+    //Added by Kelvin, 20181029 - Clear color bits (8 bits)
+    for(size_t i = 0; i < 8; i++) {
+        vpub_old_bits[i] = 0;
+    }
     LogPrintf("Old: 0x");
     for(size_t i = 0; i < 64; i++) {
         if(vpub_old_bits[i])

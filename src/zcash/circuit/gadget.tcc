@@ -157,25 +157,23 @@ public:
         // Value balance
         {
             //linear_combination<FieldT> color_check = //Added by Kelvin, 20181026
-            linear_combination<FieldT> left_side = packed_addition(zk_vpub_old);
+            //Modified by Kelvin, 20181029 - Use new functions
+            //linear_combination<FieldT> left_side = packed_addition(zk_vpub_old);
 
-            linear_combination<FieldT> test = packed_true_value(zk_vpub_old,this->pb);
-            bit_vector vpub_old_bits = zk_vpub_old.get_bits(this->pb);
-            LogPrintf("Out: 0x");
-            for(size_t i = 0; i < 64; i++) {
-                if(vpub_old_bits[i])
-                    LogPrintf("1");
-                else
-                    LogPrintf("0");
-            }
-            LogPrintf("\n");    
+            linear_combination<FieldT> left_side = packed_true_value(zk_vpub_old,this->pb);
+  
             for (size_t i = 0; i < NumInputs; i++) {
-                left_side = left_side + packed_addition(zk_input_notes[i]->value); //Modified by Kelvin, 20181026
+                //left_side = left_side + packed_addition(zk_input_notes[i]->value); //Modified by Kelvin, 20181026
+                //Modified by Kelvin, 20181029 - Use new functions
+                left_side = left_side + packed_true_value(zk_input_notes[i]->value, this->pb);
             }
 
-            linear_combination<FieldT> right_side = packed_addition(zk_vpub_new);
+            //Modified by Kelvin, 20181029 - Use new functions
+            //linear_combination<FieldT> right_side = packed_addition(zk_vpub_new);
+            linear_combination<FieldT> right_side = packed_true_value(zk_vpub_new, this->pb);
             for (size_t i = 0; i < NumOutputs; i++) {
-                right_side = right_side + packed_addition(zk_output_notes[i]->value);
+                //right_side = right_side + packed_addition(zk_output_notes[i]->value);
+                right_side = right_side + packed_true_value(zk_output_notes[i]->value, this->pb);
             }
 
             // Ensure that both sides are equal
