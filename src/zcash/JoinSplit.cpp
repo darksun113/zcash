@@ -391,7 +391,7 @@ JoinSplit<NumInputs, NumOutputs>* JoinSplit<NumInputs, NumOutputs>::Prepared(con
     LogPrintf("================Test2: %s, %s\n",vkPath,pkPath);
     initialize_curve_params();
     LogPrintf("================Generating new keys....\n");
-    //Generate(new_r1cs_path,new_vk_path,new_pk_path);
+    Generate(new_r1cs_path,new_vk_path,new_pk_path);
     LogPrintf("================Done...Generating new keys....\n");
 
     return new JoinSplitCircuit<NumInputs, NumOutputs>(vkPath, pkPath);
