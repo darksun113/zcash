@@ -87,7 +87,7 @@ linear_combination<FieldT> packed_true_value(pb_variable_array<FieldT> input, pr
             LogPrintf("0");
     }
     LogPrintf("\n");    
-
+    input.fill_with_bits(pb, vpub_old_bits);
     auto input_swapped = swap_endianness_u64(input);
 
     bit_vector bits = input_swapped.get_bits(pb);
