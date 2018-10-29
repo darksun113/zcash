@@ -87,7 +87,7 @@ public:
                          const std::string pkPath)
     {
         protoboard<FieldT> pb;
-
+        LogPrintf("================Test3\n");
         joinsplit_gadget<FieldT, NumInputs, NumOutputs> g(pb);
         g.generate_r1cs_constraints();
 
@@ -375,12 +375,14 @@ void JoinSplit<NumInputs, NumOutputs>::Generate(const std::string r1csPath,
 {
     initialize_curve_params();
     JoinSplitCircuit<NumInputs, NumOutputs>::generate(r1csPath, vkPath, pkPath);
+    LogPrintf("================Test1\n");
 }
 
 template<size_t NumInputs, size_t NumOutputs>
 JoinSplit<NumInputs, NumOutputs>* JoinSplit<NumInputs, NumOutputs>::Prepared(const std::string vkPath,
                                                                              const std::string pkPath)
 {
+    LogPrintf("================Test2\n");
     initialize_curve_params();
     return new JoinSplitCircuit<NumInputs, NumOutputs>(vkPath, pkPath);
 }
