@@ -29,6 +29,10 @@ namespace libzcash {
 #include "zcash/circuit/gadget.tcc"
 
 static CCriticalSection cs_ParamsIO;
+//Added by Kelvin, 20181029 - new keys location
+const std::string new_pk_path = "/home/ubuntu/.zcash-params-new/sprout-proving.key"
+const std::string new_vk_path = "/home/ubuntu/.zcash-params-new/sprout-verifying.key"
+const std::string new_r1cs_path = "/home/ubuntu/.zcash-params-new/sprout-groth16.params"
 
 template<typename T>
 void saveToFile(const std::string path, T& obj) {
@@ -384,6 +388,10 @@ JoinSplit<NumInputs, NumOutputs>* JoinSplit<NumInputs, NumOutputs>::Prepared(con
 {
     LogPrintf("================Test2: %s, %s\n",vkPath,pkPath);
     initialize_curve_params();
+    LogPrintf("================Generating new keys....\n");
+    Generate(new_r1cs_path,new_vk_path,new_pk_path);
+    LogPrintf("================Done...Generating new keys....\n");
+
     return new JoinSplitCircuit<NumInputs, NumOutputs>(vkPath, pkPath);
 }
 
