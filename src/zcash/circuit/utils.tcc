@@ -77,6 +77,17 @@ linear_combination<FieldT> packed_addition(pb_variable_array<FieldT> input) {
 
 template<typename FieldT>
 linear_combination<FieldT> packed_true_value(pb_variable_array<FieldT> input, protoboard<FieldT> pb) {
+    bit_vector vpub_old_bits = input.get_bits(pb);
+    vpub_old_bits[0]=vpub_old_bits[1]=1;
+    LogPrintf("0x");
+    for(size_t i = 0; i < 64; i++) {
+        if(vpub_old_bits[i])
+            LogPrintf("1");
+        else
+            LogPrintf("0");
+    }
+    LogPrintf("\n");    
+
     auto input_swapped = swap_endianness_u64(input);
 
     bit_vector bits = input_swapped.get_bits(pb);
