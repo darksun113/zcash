@@ -113,7 +113,7 @@ linear_combination<FieldT> packed_color(pb_variable_array<FieldT> input, protobo
     auto input_swapped = swap_endianness_u64(input);
 
     bit_vector bits = input_swapped.get_bits(pb);
-    LogPrintf("%u: Old_reversed: 0x", index);
+    LogPrintf("Old_reversed: 0x");
     for(size_t i = 0; i < 64; i++) {
         if(bits[i])
             LogPrintf("1");
