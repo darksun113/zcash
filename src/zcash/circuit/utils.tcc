@@ -126,6 +126,7 @@ linear_combination<FieldT> packed_color(pb_variable_array<FieldT> input, protobo
     ));
 
     auto it1 = ret.terms.begin();
+    LogPrintf("sizeof(): %d\n", sizeof(it1->coeff));
     LogPrintf("Old_reversed_linear_combination: 0x");
     while(it1!=ret.terms.end()) {
         if(it1->coeff.is_zero())
