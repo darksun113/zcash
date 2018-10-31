@@ -60,7 +60,7 @@ boost::optional<uint256> SaplingNote::cm() const {
     {
         return boost::none;
     }
-
+    
     return result;
 }
 

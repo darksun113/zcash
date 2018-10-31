@@ -22,7 +22,7 @@ public:
     virtual ~BaseNote() {};
 
     inline uint64_t value() const { return value_; };
-    inline uint64_t color() const {return color_;};
+    inline uint64_t color() const { return color_; };
 };
 
 class SproutNote : public BaseNote {
