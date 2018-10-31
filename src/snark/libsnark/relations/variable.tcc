@@ -343,7 +343,7 @@ linear_combination<FieldT> linear_combination<FieldT>::operator&(const linear_co
     while (it1 != this->terms.end() && it2 != other.terms.end())
     {
         /* it1->index == it2->index */
-        result.terms.emplace_back(linear_term<FieldT>(variable<FieldT>(it1->index), it1->coeff & it2->coeff));
+        result.terms.emplace_back(linear_term<FieldT>(variable<FieldT>(it1->index), it1->coeff * it2->coeff));
         ++it1;
         ++it2;
     }
