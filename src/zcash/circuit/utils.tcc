@@ -121,8 +121,20 @@ linear_combination<FieldT> packed_color(pb_variable_array<FieldT> input, protobo
             LogPrintf("0");
     }
     LogPrintf("\n");
-
-    return pb_packing_sum<FieldT>(pb_variable_array<FieldT>(
+    linear_combination<FieldT> ret = pb_packing_sum<FieldT>(pb_variable_array<FieldT>(
         input_swapped.rbegin(), input_swapped.rend()
     ));
+
+    auto it1 = ret.terms.begin();
+    LogPrintf("Old_reversed_linear_combination: 0x");
+    while(it1!=ret.terms.end()) {
+        if(it1->coeff.is_zero())
+            LogPrintf("0");
+        else
+            LogPrintf("1");
+        it1++;
+    }
+    LogPrintf("\n");
+
+    return ret; 
 }
