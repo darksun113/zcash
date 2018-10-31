@@ -161,6 +161,13 @@ linear_combination<FieldT> linear_term<FieldT>::operator+(const linear_combinati
     return linear_combination<FieldT>(*this) + other;
 }
 
+//Added by Kelvin, 20181031
+template<typename FieldT>
+linear_combination<FieldT> linear_term<FieldT>::operator&(const linear_combination<FieldT> &other) const
+{
+    return linear_combination<FieldT>(*this) & other;
+}
+
 template<typename FieldT>
 linear_combination<FieldT> linear_term<FieldT>::operator-(const linear_combination<FieldT> &other) const
 {
@@ -348,7 +355,7 @@ linear_combination<FieldT> linear_combination<FieldT>::operator&(const linear_co
         else
         {
             /* it1->index == it2->index */
-            result.terms.emplace_back(linear_term<FieldT>(variable<FieldT>(it1->index), it1->coeff + it2->coeff));
+            result.terms.emplace_back(linear_term<FieldT>(variable<FieldT>(it1->index), it1->coeff * it2->coeff));
             ++it1;
             ++it2;
         }
