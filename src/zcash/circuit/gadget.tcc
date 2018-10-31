@@ -161,19 +161,20 @@ public:
             //linear_combination<FieldT> left_side = packed_addition(zk_vpub_old);
 
             linear_combination<FieldT> left_side = packed_true_value(zk_vpub_old,this->pb);
-            linear_combination<FieldT> left_color = packed_color(zk_vpub_old,this->pb);
+            linear_combination<FieldT> left_color = packed_color(zk_vpub_old,this->pb, 999);
   
             for (size_t i = 0; i < NumInputs; i++) {
                 //left_side = left_side + packed_addition(zk_input_notes[i]->value); //Modified by Kelvin, 20181026
                 //Modified by Kelvin, 20181029 - Use new functions
                 left_side = left_side + packed_true_value(zk_input_notes[i]->value, this->pb);
                 //Ensure that color remains the same
+                left_color = left_color & packed_color(zk_input_notes[i]->value, this->pb, i);
             }
 
             //Modified by Kelvin, 20181029 - Use new functions
             //linear_combination<FieldT> right_side = packed_addition(zk_vpub_new);
             linear_combination<FieldT> right_side = packed_true_value(zk_vpub_new, this->pb);
-            linear_combination<FieldT> right_color = packed_color(zk_vpub_new, this->pb);
+            //linear_combination<FieldT> right_color = packed_color(zk_vpub_new, this->pb);
             //Ensure that color remains the same
      
 
