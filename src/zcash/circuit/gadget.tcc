@@ -183,7 +183,7 @@ public:
                 auto it1 = left_color.terms.begin();
                 LogPrintf("zk_vpub_old_color after and op %u: 0x", i);
                 while(it1!=left_color.terms.end()) {
-                    if(it1->coeff == FieldT::zero())
+                    if(it1->coeff.is_zero())
                         LogPrintf("0");
                     else
                         LogPrintf("1");
