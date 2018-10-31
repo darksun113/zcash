@@ -323,6 +323,49 @@ linear_combination<FieldT> linear_combination<FieldT>::operator+(const linear_co
     return result;
 }
 
+//Added by Kelvin, 20181031
+template<typename FieldT>
+linear_combination<FieldT> linear_combination<FieldT>::operator&(const linear_combination<FieldT> &other) const
+{
+    linear_combination<FieldT> result;
+
+    auto it1 = this->terms.begin();
+    auto it2 = other.terms.begin();
+
+    /* invariant: it1 and it2 always point to unprocessed items in the corresponding linear combinations */
+    while (it1 != this->terms.end() && it2 != other.terms.end())
+    {
+        if (it1->index < it2->index)
+        {
+            result.terms.emplace_back(*it1);
+            ++it1;
+        }
+        else if (it1->index > it2->index)
+        {
+            result.terms.emplace_back(*it2);
+            ++it2;
+        }
+        else
+        {
+            /* it1->index == it2->index */
+            result.terms.emplace_back(linear_term<FieldT>(variable<FieldT>(it1->index), it1->coeff + it2->coeff));
+            ++it1;
+            ++it2;
+        }
+    }
+
+    if (it1 != this->terms.end())
+    {
+        result.terms.insert(result.terms.end(), it1, this->terms.end());
+    }
+    else
+    {
+        result.terms.insert(result.terms.end(), it2, other.terms.end());
+    }
+
+    return result;
+}
+
 template<typename FieldT>
 linear_combination<FieldT> linear_combination<FieldT>::operator-(const linear_combination<FieldT> &other) const
 {

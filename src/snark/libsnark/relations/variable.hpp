@@ -173,6 +173,8 @@ public:
     linear_combination<FieldT> operator*(const FieldT &field_coeff) const;
 
     linear_combination<FieldT> operator+(const linear_combination<FieldT> &other) const;
+    //Added by Kelvin, 20181031
+    linear_combination<FieldT> operator&(const linear_combination<FieldT> &other) const;
 
     linear_combination<FieldT> operator-(const linear_combination<FieldT> &other) const;
     linear_combination<FieldT> operator-() const;

@@ -168,11 +168,6 @@ public:
                 //Modified by Kelvin, 20181029 - Use new functions
                 left_side = left_side + packed_true_value(zk_input_notes[i]->value, this->pb);
                 //Ensure that color remains the same
-                /*this->pb.add_r1cs_constraint(r1cs_constraint<FieldT>(
-                    1,
-                    left_color,
-                    packed_color(zk_input_notes[i]->value, this->pb)
-                ));*/
             }
 
             //Modified by Kelvin, 20181029 - Use new functions
@@ -180,21 +175,12 @@ public:
             linear_combination<FieldT> right_side = packed_true_value(zk_vpub_new, this->pb);
             linear_combination<FieldT> right_color = packed_color(zk_vpub_new, this->pb);
             //Ensure that color remains the same
-            /*this->pb.add_r1cs_constraint(r1cs_constraint<FieldT>(
-                1,
-                left_color,
-                right_color
-            ));*/
+     
 
             for (size_t i = 0; i < NumOutputs; i++) {
                 //right_side = right_side + packed_addition(zk_output_notes[i]->value);
                 right_side = right_side + packed_true_value(zk_output_notes[i]->value, this->pb);
-                //Ensure that color remains the same
-                /*this->pb.add_r1cs_constraint(r1cs_constraint<FieldT>(
-                    1,
-                    right_color,
-                    packed_color(zk_output_notes[i]->value, this->pb)
-                ));*/                
+                //Ensure that color remains the same            
             }
 
             // Ensure that both sides are equal
