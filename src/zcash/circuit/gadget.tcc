@@ -163,9 +163,9 @@ public:
             linear_combination<FieldT> left_side = packed_true_value(zk_vpub_old,this->pb);
             linear_combination<FieldT> left_color = packed_color(zk_vpub_old,this->pb);
 
-            auto it1 = left_color->terms.begin();
+            auto it1 = left_color.terms.begin();
             LogPrintf("zk_vpub_old_color: 0x");
-            while(it1!=left_color->terms.end()) {
+            while(it1!=left_color.terms.end()) {
                 if(it1->coeff == FieldT::zero())
                     LogPrintf("0");
                 else
@@ -180,9 +180,9 @@ public:
                 left_side = left_side + packed_true_value(zk_input_notes[i]->value, this->pb);
                 //Ensure that color remains the same
                 left_color = left_color & packed_color(zk_input_notes[i]->value, this->pb);
-                auto it1 = left_color->terms.begin();
+                auto it1 = left_color.terms.begin();
                 LogPrintf("zk_vpub_old_color after and op %u: 0x", i);
-                while(it1!=left_color->terms.end()) {
+                while(it1!=left_color.terms.end()) {
                     if(it1->coeff == FieldT::zero())
                         LogPrintf("0");
                     else
