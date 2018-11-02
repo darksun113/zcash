@@ -161,37 +161,34 @@ public:
             //linear_combination<FieldT> left_side = packed_addition(zk_vpub_old);
 
             linear_combination<FieldT> left_side = packed_true_value(zk_vpub_old,this->pb);
-            linear_combination<FieldT> left_color = packed_color(zk_vpub_old,this->pb);
-            pb_variable_array<FieldT> l_color = fetch_color(zk_vpub_old,this->pb);
+            //linear_combination<FieldT> left_color = packed_color(zk_vpub_old,this->pb);
+            pb_variable_array<FieldT> left_color = fetch_color(zk_vpub_old,this->pb);
 
-
-            auto it1 = left_color.terms.begin();
+            bit_vector vpub_old_color_bits = left_color.get_bits(this->pb);
             LogPrintf("zk_vpub_old_color: 0x");
-            while(it1!=left_color.terms.end()) {
-                if(it1->coeff.is_zero())
-                    LogPrintf("0");
-                else
+            for(size_t i = 0; i < 64; i++) {
+                if(vpub_old_color_bits[i])
                     LogPrintf("1");
-                it1++;
+                else
+                    LogPrintf("0");
             }
-            LogPrintf("\n");
+            LogPrintf("\n"); 
   
             for (size_t i = 0; i < NumInputs; i++) {
                 //left_side = left_side + packed_addition(zk_input_notes[i]->value); //Modified by Kelvin, 20181026
                 //Modified by Kelvin, 20181029 - Use new functions
                 left_side = left_side + packed_true_value(zk_input_notes[i]->value, this->pb);
                 //Ensure that color remains the same
-                left_color = left_color & packed_color(zk_input_notes[i]->value, this->pb);
-                auto it1 = left_color.terms.begin();
+                left_color = and(left_color, fetch_color(zk_input_notes[i]->value, this->pb), this->pb);
+                bit_vector vpub_old_color_bits = left_color.get_bits(this->pb);
                 LogPrintf("zk_vpub_old_color after and op %u: 0x", i);
-                while(it1!=left_color.terms.end()) {
-                    if(it1->coeff.is_zero())
-                        LogPrintf("0");
-                    else
+                for(size_t j = 0; j < 64; j++) {
+                    if(vpub_old_color_bits[j])
                         LogPrintf("1");
-                    it1++;
+                    else
+                        LogPrintf("0");
                 }
-                LogPrintf("\n");
+                LogPrintf("\n"); 
             }
 
             //Modified by Kelvin, 20181029 - Use new functions

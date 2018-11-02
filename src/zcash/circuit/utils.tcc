@@ -109,6 +109,24 @@ pb_variable_array<FieldT> fetch_color(pb_variable_array<FieldT> input, protoboar
 }
 
 template<typename FieldT>
+pb_variable_array<FieldT> and(pb_variable_array<FieldT> input1, pb_variable_array<FieldT> input2, protoboard<FieldT> pb) {
+    //Added by Kelvin, 20181101 - Clear value bits (56 bits)
+    bit_vector bits1 = input1.get_bits(pb);
+    bit_vector bits2 = input2.get_bits(pb);
+
+    for(size_t i = 0; i < 64; i++) {
+        bits1[i] = bits1[i] & bits2[i];
+    }
+
+    input1.fill_with_bits(pb, bits1);
+    auto input_swapped = swap_endianness_u64(input1);
+
+    return pb_variable_array<FieldT>(
+        input_swapped.rbegin(), input_swapped.rend()
+    );
+}
+
+template<typename FieldT>
 linear_combination<FieldT> packed_color(pb_variable_array<FieldT> input, protoboard<FieldT> pb) {
     //Added by Kelvin, 20181029 - Clear value bits (56 bits)
     bit_vector vpub_old_bits = input.get_bits(pb);
