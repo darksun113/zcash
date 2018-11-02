@@ -215,8 +215,8 @@ public:
 
             this->pb.add_r1cs_constraint(r1cs_constraint<FieldT>(
                 1,
-                pack_addition(left_color),
-                pack_addition(right_color)
+                packed_addition(left_color),
+                packed_addition(right_color)
             ));
 
             // #854: Ensure that left_side is a 64-bit integer.
