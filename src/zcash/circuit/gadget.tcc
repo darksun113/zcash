@@ -162,6 +162,8 @@ public:
 
             linear_combination<FieldT> left_side = packed_true_value(zk_vpub_old,this->pb);
             linear_combination<FieldT> left_color = packed_color(zk_vpub_old,this->pb);
+            pb_variable_array<FieldT> l_color = fetch_color(zk_vpub_old,this->pb);
+
 
             auto it1 = left_color.terms.begin();
             LogPrintf("zk_vpub_old_color: 0x");
