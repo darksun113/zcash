@@ -109,7 +109,7 @@ pb_variable_array<FieldT> fetch_color(pb_variable_array<FieldT> input, protoboar
 }
 
 template<typename FieldT>
-pb_variable_array<FieldT> and(pb_variable_array<FieldT> input1, pb_variable_array<FieldT> input2, protoboard<FieldT> pb) {
+pb_variable_array<FieldT> pb_variable_array_and(pb_variable_array<FieldT> input1, pb_variable_array<FieldT> input2, protoboard<FieldT> pb) {
     //Added by Kelvin, 20181101 - Clear value bits (56 bits)
     bit_vector bits1 = input1.get_bits(pb);
     bit_vector bits2 = input2.get_bits(pb);

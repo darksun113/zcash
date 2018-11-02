@@ -179,7 +179,7 @@ public:
                 //Modified by Kelvin, 20181029 - Use new functions
                 left_side = left_side + packed_true_value(zk_input_notes[i]->value, this->pb);
                 //Ensure that color remains the same
-                left_color = and(left_color, fetch_color(zk_input_notes[i]->value, this->pb), this->pb);
+                left_color = pb_variable_array_and(left_color, fetch_color(zk_input_notes[i]->value, this->pb), this->pb);
                 bit_vector vpub_old_color_bits = left_color.get_bits(this->pb);
                 LogPrintf("zk_vpub_old_color after and op %u: 0x", i);
                 for(size_t j = 0; j < 64; j++) {
