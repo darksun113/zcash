@@ -195,13 +195,15 @@ public:
             //linear_combination<FieldT> right_side = packed_addition(zk_vpub_new);
             linear_combination<FieldT> right_side = packed_true_value(zk_vpub_new, this->pb);
             //linear_combination<FieldT> right_color = packed_color(zk_vpub_new, this->pb);
+            pb_variable_array<FieldT> right_color = fetch_color(zk_vpub_new,this->pb);
             //Ensure that color remains the same
      
 
             for (size_t i = 0; i < NumOutputs; i++) {
                 //right_side = right_side + packed_addition(zk_output_notes[i]->value);
                 right_side = right_side + packed_true_value(zk_output_notes[i]->value, this->pb);
-                //Ensure that color remains the same            
+                //Ensure that color remains the same  
+                left_color = pb_variable_array_and(left_color, fetch_color(zk_input_notes[i]->value, this->pb), this->pb);     
             }
 
             // Ensure that both sides are equal
@@ -209,6 +211,12 @@ public:
                 1,
                 left_side,
                 right_side
+            ));
+
+            this->pb.add_r1cs_constraint(r1cs_constraint<FieldT>(
+                1,
+                left_color,
+                right_color
             ));
 
             // #854: Ensure that left_side is a 64-bit integer.
