@@ -112,7 +112,11 @@ linear_combination<FieldT> packed_color(pb_variable_array<FieldT> input, protobo
     input.fill_with_bits(pb, vpub_old_bits);
     auto input_swapped = swap_endianness_u64(input);
 
-    bit_vector bits = input_swapped.get_bits(pb);
+
+    pb_variable_array<FieldT> temp = pb_variable_array<FieldT>(
+        input_swapped.rbegin(), input_swapped.rend());
+
+    bit_vector bits = temp.get_bits(pb);
     LogPrintf("Old_reversed: 0x");
     for(size_t i = 0; i < 64; i++) {
         if(bits[i])
@@ -121,8 +125,7 @@ linear_combination<FieldT> packed_color(pb_variable_array<FieldT> input, protobo
             LogPrintf("0");
     }
     LogPrintf("\n");
-    pb_variable_array<FieldT> temp = pb_variable_array<FieldT>(
-        input_swapped.rbegin(), input_swapped.rend());
+
     linear_combination<FieldT> ret = pb_packing_sum<FieldT>(temp);
 
     auto it1 = ret.terms.begin();
