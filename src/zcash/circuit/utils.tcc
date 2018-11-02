@@ -121,9 +121,9 @@ linear_combination<FieldT> packed_color(pb_variable_array<FieldT> input, protobo
             LogPrintf("0");
     }
     LogPrintf("\n");
-    linear_combination<FieldT> ret = pb_packing_sum<FieldT>(pb_variable_array<FieldT>(
-        input_swapped.rbegin(), input_swapped.rend()
-    ));
+    pb_variable_array<FieldT> temp = pb_variable_array<FieldT>(
+        input_swapped.rbegin(), input_swapped.rend());
+    linear_combination<FieldT> ret = pb_packing_sum<FieldT>(temp);
 
     auto it1 = ret.terms.begin();
     LogPrintf("sizeof(): %d\n", sizeof(it1->coeff));

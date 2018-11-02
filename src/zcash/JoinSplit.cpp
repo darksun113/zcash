@@ -353,7 +353,7 @@ public:
         // TODO: These are copies, which is not strictly necessary.
         std::vector<FieldT> primary_input = pb.primary_input();
         std::vector<FieldT> aux_input = pb.auxiliary_input();
-
+        
         // Swap A and B if it's beneficial (less arithmetic in G2)
         // In our circuit, we already know that it's beneficial
         // to swap, but it takes so little time to perform this
